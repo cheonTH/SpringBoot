@@ -1,0 +1,59 @@
+
+//플러그인
+//Gradle에서 빌드 작업을 확장하고 자동화 할 수 있도록 해주는 기능
+//플러그인을 통해 다양한 기능을 추가할 수 있는데, 프로젝트에 필요한 빌드 작업이나 설정을 플러그인을 통해 쉽게 적용할 수 있음
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.5'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+//프로젝트의 그룹 ID를 설정함
+group = 'com.example'
+
+//프로젝트의 버전을 설정함
+//SNAPSHOT : 아직 완성되지 않은 버전이라는 의미
+version = '0.0.1-SNAPSHOT'
+
+//자바 버전 설정
+//Gradle은 toolchain을 통해 명시적으로 자바 버전을 관리할 수 있음
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+//컴파일할 때만 사용되는 의존성 설정
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+//Gradle이 라이브러리를 다운로드 하는 곳을 repositories라고 함
+//Meven Central을 주로 사용함
+repositories {
+	mavenCentral()
+}
+
+//의존성 설정
+//implementation : 프로젝트에서 런타임에 사용될 라이브러리를 정의함
+//compileonly : 컴파일 시에만 필요한 라이브러리
+//runtimeOnly : 런타임에만 필요한 라이브러리를 정의함
+//annotationProccessor : 컴파일 타임에 어노테이션을 처리하는 라이브러리
+//testImplementation : 테스트 코드를 실행할 때 필요한 라이브러리
+//testRuntimeOnly : 테스트 환경에서만 사용할 수 있는 라이브러리
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+//테스트 설정
+//JUnit플랫폼을 사용해 테스트를 실행하도록 설정함
+tasks.named('test') {
+	useJUnitPlatform()
+}

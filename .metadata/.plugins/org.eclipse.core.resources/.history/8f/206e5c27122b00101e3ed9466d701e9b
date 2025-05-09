@@ -1,0 +1,37 @@
+package com.korea.user.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.korea.todo.model.TodoEntity;
+import com.korea.user.model.UserEntity;
+import com.korea.user.repository.UserRepository;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class UserService {
+	
+	@Autowired
+	private UserRepository repository;
+	
+	
+	
+	
+	
+	
+	
+	private void validate(UserEntity entity) {
+		//매개변수로 넘어온 entity가 유효한지 검사한다.
+		if(entity == null) {
+			log.warn("Entity cannot be null");
+			throw new RuntimeException("Entity cannot be null");
+		}
+		
+		if(entity.getEmail() == null) {
+			log.warn("Unknown user");
+			throw new RuntimeException("Unknown user");
+		}
+	}
+}

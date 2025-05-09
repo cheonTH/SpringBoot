@@ -1,0 +1,12 @@
+package com.korea.todo.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration //스프링에서 해당 클래스를 설정 클래스로 인식하고 bean으로 등록함
+//WebMvcConfigurer : 스프링 MVC의 기본 설정을 내가 조절하고 싶을 때 사용
+//스프링 MVC는 여러가지 기본설정(뷰 리졸버, 메시지 컨버터, CORS 등)을 가지고 있음
+public class WebMvcConfig implements WebMvcConfigurer{
+	private final long MAX_AGE_SECS = 3600; //브라우저가 CORS요청 결과를 캐싱하는 최대 시간 설정
+	//캐싱 : 자주 쓰는 정보를 미리 저장해 뒀다가 다음에 같은 정보가 필요할 때 저장소에서 꺼내쓰는 기법
+}

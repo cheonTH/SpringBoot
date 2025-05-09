@@ -1,0 +1,69 @@
+package com.korea.product.controller;
+
+import java.util.List;
+
+import org.apache.catalina.connector.Response;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.korea.product.dto.ProductDTO;
+import com.korea.product.model.ProductEntity;
+import com.korea.product.service.ProductService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/api/products")
+@RequiredArgsConstructor
+public class ProductController {
+
+	private final ProductService service;
+	
+	//상품 추가
+	@PostMapping
+	//JSON으로 넘어오는걸 자바 객체로 받아야함 -> @RequestBody
+	//사용자로부터 데이터를 받을 때는 DTO를 써야함
+	public ResponseEntity<?> addProduct(@RequestBody ProductDTO dto){
+		List<ProductDTO> response = service.addProduct(dto);
+		return ResponseEntity.ok(response);
+	}
+	
+	//모든 상품의 조회(최소 금액이 있다면 최소금액 이상의 제품만 조회)
+	//클라이언트가 최소금액을 전달할 수도 있음
+	@GetMapping
+	public ResponseEntity<?> getAllProducts(@RequestParam(required = false) Double minPrice){
+		List<ProductDTO> products = service.getFilteredProducts(minPrice);
+		
+		return ResponseEntity.ok(products);
+	}
+	
+	//수정
+	@PutMapping("/{id}")
+	public ResponseEntity<?> updateProducts(@PathVariable int id, @RequestBody  ProductDTO dto){
+		List<ProductDTO> products = service.updateProduct(id, dto);
+		
+		return ResponseEntity.ok(products);
+	}
+	
+	//삭제
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteProducts(@PathVariable int id){
+		boolean isDeleted = service.deleteProduct(id);
+		
+		//삭제가 정상처리되면 본문 없이 204 No Content 응답
+		if(isDeleted) {
+			return ResponseEntity.noContent().build();
+		}
+		
+		//삭제 실패시 404NotFound 응답
+		return ResponseEntity.notFound().build();
+	}
+}

@@ -1,0 +1,43 @@
+package com.korea.user.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.korea.user.model.UserEntity;
+import com.korea.user.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Service
+public class UserService {
+	
+	@Autowired
+	private final UserRepository repository;
+	
+	public List<UserEntity> create(UserEntity entity){
+		validate(entity);
+		repository.save(entity);
+		log.info("Entity Id : {} is saved",entity.getId());
+		
+		return repository.findByEmail(entity.getEmail());
+	}
+	
+	
+	
+	
+	
+	private void validate(UserEntity entity) {
+		if(entity == null) {
+			log.warn("Entity cannot be null");
+			throw new RuntimeException("Entity cannot be null");
+		}
+		
+		if(entity.getEmail() == null) {
+			log.warn("Unknown user");
+			throw new RuntimeException("Unknown user");
+		}
+	}
+}
