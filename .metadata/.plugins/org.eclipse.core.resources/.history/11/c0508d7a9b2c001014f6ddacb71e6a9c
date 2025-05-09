@@ -1,0 +1,37 @@
+package com.korea.todo.security;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
+import org.springframework.stereotype.Service;
+
+import com.korea.todo.model.UserEntity;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class TokenProvider {
+	//비밀키
+	private static final String SECRET_KEY="0ebfcd9b89652d1b7c61eaf88cbf61ebbadc1852de08ceafd7db6a50c966dfbf72addbf3f9faad310ee64ea72e47ff5e445122f5bf951117b97522c2506febc26e568cf0118b193f3098cd980287fcf31d858326ecb55c93b28aa0df8115ffd94e07d50a94fa0a5a8bb0196fff0d23854ff12a4c637af7828fea5f1cc0ec4c2ec3eab1d27ab2cc870d64af1f02eb0df596b652f4ba56687a7d7a92b758f9393cad1534fc8c7f227244da8f6b1b88635f11ff820fa5367b9a642696c2d78f7b5b71f1406a4484088d374951f1b8e3dbb40b22ad3ad67192d474c1a80dfbbfbfa33a1a656ed2c58d67333156303e93f0668c768c2771dd91d2b52a57be16674cc6";
+	
+	//토큰을 만드는 메서드
+	public String create(UserEntity entity) {
+		//토큰 만료시간을 설정
+		//현재 시각 + 1일
+		//instant클래스 : 타임스탬프로 찍음
+		//plus() : 첫번째 인자는 더할 양, 시간 단위
+		//ChronoUnit열거형의 DAYS 일 단위를 의미함
+		Date expiryDate = Date.from(Instant.now().plus(1,ChronoUnit.DAYS));
+		
+		//JWT토큰을 생성
+		return Jwts.builder()
+					.signWith(SignatureAlgorithm.HS512,SECRET_KEY)
+					.setSubject(entity.getId())
+					.setIssuer("todo app")
+					.setIssuedAt(new Date())
+					.setExpiration(expiryDate)
+					.compact();
+	}
+}

@@ -1,0 +1,14 @@
+package com.korea.todo.service;
+
+import org.springframework.stereotype.Service;
+
+import com.korea.todo.persistence.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class UserService {
+	//repository 생성자 주입
+	private final UserRepository repository;
+}
