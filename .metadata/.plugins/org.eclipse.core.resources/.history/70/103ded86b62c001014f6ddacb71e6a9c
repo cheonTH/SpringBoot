@@ -1,0 +1,5 @@
+package com.korea.todo.config;
+
+public class WebSecurityConfig {
+
+}
