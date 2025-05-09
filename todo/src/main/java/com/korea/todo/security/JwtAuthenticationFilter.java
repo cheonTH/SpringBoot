@@ -33,10 +33,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		try {
-			//parseBarerToken메서드
-			//HTTP요청 헤더에서 Authorization값을 가져와 Barer토큰 형식인지 확인한 후, 토큰을 가져옴
+			//parseBearerToken메서드
+			//HTTP요청 헤더에서 Authorization값을 가져와 Bearer토큰 형식인지 확인한 후, 토큰을 가져옴
 			//토큰이 없거나 유효하지 않으면 null을 반환
-			String token = parseBarerToken(request);
+			String token = parseBearerToken(request);
 			log.info("Filter is running...");
 			
 			
@@ -87,17 +87,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	//getMethod() : 요청 메서드 확인 가능(GET, POST, PUT, DELETE)
 	//getRequestURI() : 도메인 이후의 요청 경로를 반환
 	//getProtocol() : 사용된 프로토콜과 버전을 반환
-	private String parseBarerToken(HttpServletRequest request) {
-		//요청 정보에서 헤더를 파싱해 Barer토큰을 반환함
-		//Barer : 토큰을 소지하고 있는 사람이 곧 인증된 사용자 라는 뜻
+	private String parseBearerToken(HttpServletRequest request) {
+		//요청 정보에서 헤더를 파싱해 Bearer토큰을 반환함
+		//Bearer : 토큰을 소지하고 있는 사람이 곧 인증된 사용자 라는 뜻
 		
 		//request.getHeader("Authorization") : HTTP헤더에서 Authorization에 들어있는 값을 얻어 옴
-		String barerToken = request.getHeader("Authorization");
+		String BearerToken = request.getHeader("Authorization");
 		
-		//Barer토큰 형식일 경우 토큰값만 반환
-		//Authorization : Barer 토큰값
-		if(StringUtils.hasText(barerToken) && barerToken.startsWith("Barer ")) {
-			return barerToken.substring(7);
+		//Bearer토큰 형식일 경우 토큰값만 반환
+		//Authorization : Bearer 토큰값
+		if(StringUtils.hasText(BearerToken) && BearerToken.startsWith("Bearer ")) {
+			return BearerToken.substring(7);
 		}
 		return null;
 	}
