@@ -1,6 +1,8 @@
 package com.korea.todo.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,8 @@ public class UserController {
 	
 	//TokenProvider 클래스 주입
 	private final TokenProvider tokenProvider;
+	
+	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	//회원가입
 	//로그인을 해야 토큰을 주는거지, 회원가입을 했다고 토큰을 주는게 아님
@@ -66,7 +70,7 @@ public class UserController {
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticate(@RequestBody UserDTO dto){
 		//요청 본문으로 전달된 UserDTO의 username과 password를 기반으로 유저를 조회
-		UserEntity user = service.getByCredential(dto.getUsername(), dto.getPassword());
+		UserEntity user = service.getByCredential(dto.getUsername(), dto.getPassword(), passwordEncoder);
 		
 		//조회된 user가 있으면
 		if(user != null) {
