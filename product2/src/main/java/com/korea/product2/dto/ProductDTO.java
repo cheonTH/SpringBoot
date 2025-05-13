@@ -22,9 +22,7 @@ public class ProductDTO {
 	private String productName;
 	private int productCount;
 	private int productPrice;
-	@CreationTimestamp
 	private LocalDateTime addTime;
-	@UpdateTimestamp
 	private LocalDateTime changeTime;
 	
 	public ProductDTO(ProductEntity entity) {
