@@ -1,9 +1,0 @@
-package com.korea.todo.persistence;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.korea.todo.model.UserEntity;
-
-public interface UserRepository extends JpaRepository<UserEntity, String>{
-	UserEntity findByUserName(String username); //username값으로 데이터를 한 건 찾아 반환함
-}

@@ -16,13 +16,20 @@ import lombok.RequiredArgsConstructor;
 public class ProductService {
 	private final ProductRepository repository;
 	
-	public List<ProductDTO> getFindAll() {
+	public List<ProductEntity> getFindAll() {
 		return repository.findAll();
 	}
 	
-	public ProductDTO addProduct(ProductEntity entity){
-		ProductEntity save = repository.save(entity);
+	private void validate(ProductEntity entity) {
+		if(entity == null) {
+			throw new RuntimeException("Entity cannot be null");
+		}
+	}
+	
+	public List<ProductEntity> addProduct(ProductEntity entity){
+		validate(entity);
+		repository.save(entity);
 		
-		return new ProductDTO(save);
+		return repository.findAll();
 	}
 }

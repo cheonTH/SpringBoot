@@ -1,5 +1,0 @@
-package com.korea.todo.persistence;
-
-public interface UserRepository {
-
-}
