@@ -3,6 +3,7 @@ package com.example.board.model;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class BoardEntity {
 	private Long id;
 	private String title;
 	private String author;
-	@CreationTimestamp 
+	@UpdateTimestamp
 	private LocalDateTime writingTime;
 	private String content;
 }
