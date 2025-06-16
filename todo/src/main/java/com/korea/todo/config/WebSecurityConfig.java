@@ -59,7 +59,10 @@ public class WebSecurityConfig {
 		//CORS 설정을 담기 위한 객체의 생성
 		CorsConfiguration configuration = new CorsConfiguration();
 		//허용할 출처(Origin)지정
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+		configuration.setAllowedOrigins(Arrays.asList(
+				"http://localhost:3000",
+				"http://TodoApplication-frontend-env.eba-srnmakm5.ap-northeast-2.elasticbeanstalk.com"
+				));
 		//형성할 메서드 지정
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST" ,"PUT", "DELETE"));
 		//허용할 요청 헤더를 지정("*"는 모든 헤더를 허용하겠다는 의미)

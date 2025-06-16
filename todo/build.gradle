@@ -37,6 +37,7 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.2.4'
+	implementation 'mysql:mysql-connector-java:8.0.33'
 }
 
 tasks.named('test') {
