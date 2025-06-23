@@ -1,0 +1,5 @@
+package com.recipe.app.model;
+
+public class Post {
+
+}

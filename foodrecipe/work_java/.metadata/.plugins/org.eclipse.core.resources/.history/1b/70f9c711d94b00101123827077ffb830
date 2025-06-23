@@ -1,0 +1,8 @@
+package com.recipe.app.dto;
+
+import lombok.Data;
+
+@Data
+public class RecipeRecommendationRequest {
+	private String ingredients;
+}

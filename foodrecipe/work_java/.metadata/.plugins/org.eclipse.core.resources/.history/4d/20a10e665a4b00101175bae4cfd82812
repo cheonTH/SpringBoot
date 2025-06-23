@@ -1,0 +1,28 @@
+package com.recipe.app.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.recipe.app.dto.RecipeResponseDto;
+
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
+import lombok.Value;
+import reactor.core.publisher.Mono;
+
+@Service
+public class RecipeRecommendationService {
+	private final WebClient webClient;  // 비동기 HTTP 클라이언트
+	
+	// application.properties에 제미나이 주소 들어갈 주소 넣기
+	public RecipeRecommendationService(@Value("${python.gemini.service.url}") String pythonGeminiServerUrl) {
+		this.webClient = WebClient.builder()
+				.baseUrl(pythonGeminiServerUrl)
+				.build();
+	}
+	
+	public Mono<List<RecipeResponseDto>>
+}
+

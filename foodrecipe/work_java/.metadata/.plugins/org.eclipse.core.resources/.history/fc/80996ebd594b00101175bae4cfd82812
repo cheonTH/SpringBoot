@@ -1,0 +1,1 @@
+python.gemini.service.url=http://localhost:5000/api/gemini/recommend

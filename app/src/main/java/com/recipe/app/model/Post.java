@@ -1,0 +1,29 @@
+package com.recipe.app.model;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Entity
+@Table(name="posts")
+@NoArgsConstructor
+@AllArgsConstructor
+public class Post {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	
+	private String title;	// 게시판 제목
+	private String content; // 게시판 내용
+	private Long userId;	// 작성자 아이디(User 모델에서 userId 아님!!!)
+	private LocalDateTime createdAt;	// 최초 작성 시간
+	private LocalDateTime updatedAt;	// 게시판 수정 시간
+}

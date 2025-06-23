@@ -1,0 +1,29 @@
+package com.recipe.app.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.recipe.app.model.Post;
+import com.recipe.app.repository.PostRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class BoardService {
+	private final PostRepository postRepository;
+	
+	public List<Post> getAllPosts() {
+		return postRepository.findAll();
+	}
+	
+	public Optional<Post> getPostById(Long id) {
+		return postRepository.findById(id);
+	}
+	
+	public Post createPost(Post post) {
+		return postRepository.save(post);
+	}
+}

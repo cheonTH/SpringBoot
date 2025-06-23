@@ -1,0 +1,5 @@
+package com.recipe.app.dto;
+
+public class RecipeResponseRequest {
+
+}

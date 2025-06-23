@@ -1,0 +1,18 @@
+package com.recipe.app.service;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.recipe.app.model.User;
+import com.recipe.app.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class AuthService {
+	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
+	
+	public User registerUser(RegisterRequest )
+}
